@@ -1,0 +1,100 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="../node_modules/jquery-ui-dist/jquery-ui.min.css">
+  <script src="../node_modules/moment/min/moment.min.js"></script>
+  <script src="../node_modules/moment-duration-format/lib/moment-duration-format.js"></script>
+  <script src="../dist/jquery-ui-durationslider.js"></script>
+  <link rel="stylesheet" href="../dist/jquery-ui-durationslider.css">
+</head>
+<body>
+  <h1>Hours and minutes</h1>
+  <form>
+    <div style="display: flex; align-items: center;">
+      <div>
+        <input id="ex1" type="text" value="10:08" style="width: 5em;" />
+      </div>
+      <div>
+        <div id="ex1_hour" style="width: 120px;"></div>
+        <div id="ex1_minute" style="width: 120px;"></div>
+      </div>
+    </div>
+  </form>
+  <script>
+  $('#ex1').durationslider({
+    sliders: {
+      h: { elem: '#ex1_hour' },
+      m: { elem: '#ex1_minute' }
+    }
+  });
+  </script>
+
+  <h1>With seconds</h1>
+  <form>
+    <div style="display: flex; align-items: center;">
+      <div>
+        <input id="ex2" type="text" value="10:08:59" style="width: 5em;" />
+      </div>
+      <div>
+        <div id="ex2_hour" style="width: 120px;"></div>
+        <div id="ex2_minute" style="width: 120px;"></div>
+        <div id="ex2_second" style="width: 120px;"></div>
+      </div>
+    </div>
+  </form>
+  <script>
+  $('#ex2').durationslider({
+    sliders: {
+      h: { elem: '#ex2_hour' },
+      m: { elem: '#ex2_minute' },
+      s: { elem: '#ex2_second' }
+    }
+  });
+  </script>
+
+  <h1>Customize max and step</h1>
+  <form>
+    <div style="display: flex; align-items: center;">
+      <div>
+        <input id="ex3" type="text" value="10:10" style="width: 5em;" />
+      </div>
+      <div>
+        <div id="ex3_hour" style="width: 120px;"></div>
+        <div id="ex3_minute" style="width: 120px;"></div>
+      </div>
+    </div>
+  </form>
+  <script>
+  $('#ex3').durationslider({
+    sliders: {
+      h: { elem: '#ex3_hour', max: 48 },
+      m: { elem: '#ex3_minute', step: 5 }
+    }
+  });
+  </script>
+
+  <h1>Customize duration format</h1>
+  <form>
+    <div style="display: flex; align-items: center;">
+      <div>
+        <input id="ex4" type="text" value="10.10" style="width: 5em;" />
+      </div>
+      <div>
+        <div id="ex4_hour" style="width: 120px;"></div>
+        <div id="ex4_minute" style="width: 120px;"></div>
+      </div>
+    </div>
+  </form>
+  <script>
+  $('#ex4').durationslider({
+    sliders: {
+      h: { elem: '#ex4_hour' },
+      m: { elem: '#ex4_minute' }
+    },
+    format: 'h.mm'
+  });
+  </script>
+</body>
+</html>
