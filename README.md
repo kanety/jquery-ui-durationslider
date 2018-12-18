@@ -1,6 +1,6 @@
 # jquery-ui-durationslider
 
-Bind text box and sliders for duration input.
+Bind text box and jquery-ui slider for duration input.
 
 ## Dependencies
 
@@ -53,7 +53,7 @@ $('#text').durationslider({
 });
 ```
 
-Customize max value and step value of the slider:
+Customize max value and step value:
 
 ```javascript
 $('#text').durationslider({
@@ -64,7 +64,7 @@ $('#text').durationslider({
 });
 ```
 
-Customize the duration format:
+Customize duration format:
 
 ```javascript
 $('#text').durationslider({
