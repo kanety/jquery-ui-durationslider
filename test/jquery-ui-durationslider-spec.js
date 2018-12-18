@@ -20,16 +20,16 @@ describe('jquery-durationslider', function() {
 
     $hour.slider('value', 11).trigger('slide', { value: 11 });
     $minute.slider('value', 9).trigger('slide', { value: 9 });
-    expect($ex.val()).toEqual('11:9');
+    expect($ex.val()).toEqual('11:09');
     expect($hour.slider('value')).toEqual(11);
     expect($minute.slider('value')).toEqual(9);
   });
 
   it('includes a second slider', function() {
-    var $ex = $('#ex3');
-    var $hour = $('#ex3_hour');
-    var $minute = $('#ex3_minute');
-    var $second = $('#ex3_second');
+    var $ex = $('#ex2');
+    var $hour = $('#ex2_hour');
+    var $minute = $('#ex2_minute');
+    var $second = $('#ex2_second');
     $ex.durationslider({
       sliders: {
         h: { elem: $hour },

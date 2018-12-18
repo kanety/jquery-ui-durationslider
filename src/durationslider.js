@@ -65,14 +65,14 @@ export default class Durationslider {
     let formats = [];
     ['h', 'm', 's'].forEach((type) => {
       if (this.$sliders[type]) {
-        formats.push(type + type);
+        formats.push(`${type}${type}`);
       }
     });
     return formats.join(':')
   }
 
   bind() {
-    this.$input.on(`keyup.${NAMESPACE}`, (e) => {
+    this.$input.on(`input.${NAMESPACE}`, (e) => {
       this.textChanged();
     });
 
@@ -95,6 +95,10 @@ export default class Durationslider {
         this.$sliders[type].off(`.${NAMESPACE}`);
       }
     }
+  }
+
+  sliders() {
+    return this.$sliders;
   }
 
   textChanged() {
@@ -122,7 +126,7 @@ export default class Durationslider {
     }
 
     let text = Durationslider.toText(second, this.options.format);
-    this.$input.val(text);
+    this.$input.val(text).trigger('change');
   }
 
   static toSecond(type, value) {
