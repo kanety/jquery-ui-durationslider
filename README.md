@@ -12,7 +12,7 @@ Bind text box and jquery-ui slider for duration input.
 
 Install from npm:
 
-    $ npm install @kanety/jquery-ui-durationslider- --save
+    $ npm install @kanety/jquery-ui-durationslider --save
 
 ## Usage
 

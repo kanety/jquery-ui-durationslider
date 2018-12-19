@@ -1,7 +1,7 @@
 'use strict';
 
 import { NAMESPACE } from 'consts';
-import MousewheelHandler from 'durationslider/mousewheel-handler';
+import WheelHandler from 'durationslider/wheel-handler';
 
 const DEFAULTS = {
   format: null,
@@ -33,27 +33,23 @@ export default class Durationslider {
     this.options = $.extend(true, {}, DEFAULTS, options);
 
     this.$input = $(input);
-    this.$sliders = {};
-
     this.init();
   }
 
   init() {
+    this.$sliders = {};
+
     for (let type in this.options.sliders) {
-      let slider = this.options.sliders[type];
-      if (!slider.elem) {
+      let opt = this.options.sliders[type];
+      if (!opt.elem) {
         continue;
       }
 
-      let $elem = $(slider.elem);
-      $elem.data(`${NAMESPACE}-type`, type);
-      $elem.data(`${NAMESPACE}-input`, this.$input);
-      $elem.addClass(NAMESPACE);
-      $elem.slider({
-        min: slider.min,
-        max: slider.max,
-        step: slider.step
-      });
+      let $elem = $(opt.elem);
+      $elem.data(`${NAMESPACE}-type`, type)
+           .data(`${NAMESPACE}-input`, this.$input)
+           .addClass(NAMESPACE)
+           .slider({ min: opt.min, max: opt.max, step: opt.step });
       this.$sliders[type] = $elem;
     }
 
@@ -79,7 +75,7 @@ export default class Durationslider {
     this.$input.on(`input.${NAMESPACE}`, (e) => {
       this.textChanged();
     });
-    this.$input.on(`change.${NAMESPACE}`, (e) => {
+    this.$input.on(`blur.${NAMESPACE}`, (e) => {
       this.sliderChanged();
     });
 
@@ -95,7 +91,7 @@ export default class Durationslider {
     }
 
     if (this.options.mousewheel) {
-      MousewheelHandler.bind();
+      WheelHandler.bind();
     }
   }
 
@@ -132,21 +128,6 @@ export default class Durationslider {
     if (this.$input.val() != text) {
       this.$input.val(text).trigger('change');
     }
-  }
-
-  wheelMoved($slider, up) {
-    let type = $slider.data(`${NAMESPACE}-type`);
-    let value = $slider.slider('value');
-    let option = this.options.sliders[type];
-
-    if (up) {
-      value = Math.max(option.min, value - option.step)
-    } else {
-      value = Math.min(option.max, value + option.step)
-    }
-
-    $slider.slider('value', value);
-    this.sliderChanged();
   }
 
   static toSecond(type, value) {

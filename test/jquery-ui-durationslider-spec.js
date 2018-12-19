@@ -65,7 +65,7 @@ describe('jquery-durationslider', function() {
     $hour.find('.ui-slider-handle').addClass('ui-state-focus');
     $minute.find('.ui-slider-handle').addClass('ui-state-focus');
 
-    var event = new WheelEvent('wheel', { deltaX: 0, deltaY: 1, deltaZ: 0 });
+    var event = new WheelEvent('wheel', { deltaX: 0, deltaY: -1, deltaZ: 0 });
     window.dispatchEvent(event);
 
     expect($ex.val()).toEqual('11:11');
