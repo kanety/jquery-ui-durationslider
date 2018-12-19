@@ -19,15 +19,9 @@ Install from npm:
 Make a text box and `div` elements for sliders:
 
 ```html
-<div style="display: flex; align-items: center;">
-  <div>
-    <input id="text" type="text" value="10:08" style="width: 5em;" />
-  </div>
-  <div>
-    <div id="hour" style="width: 150px;"></div>
-    <div id="minute" style="width: 150px;"></div>
-  </div>
-</div>
+<input id="text" type="text" value="10:08" style="width: 5em;" />
+<div id="hour" style="width: 150px;"></div>
+<div id="minute" style="width: 150px;"></div>
 ```
 
 Then:
