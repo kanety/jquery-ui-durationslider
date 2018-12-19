@@ -79,14 +79,17 @@ export default class Durationslider {
     this.$input.on(`input.${NAMESPACE}`, (e) => {
       this.textChanged();
     });
+    this.$input.on(`change.${NAMESPACE}`, (e) => {
+      this.sliderChanged();
+    });
 
     for (let type in this.$sliders) {
       let $slider = this.$sliders[type];
       if ($slider) {
         $slider.on(`slide.${NAMESPACE}`, (e, ui) => {
           let type = $(e.target).data(`${NAMESPACE}-type`);
-          let value = ui.value;
-          this.sliderChanged(type, value);
+          this.$sliders[type].slider('value', ui.value);
+          this.sliderChanged();
         });
       }
     }
@@ -106,36 +109,29 @@ export default class Durationslider {
     }
   }
 
-  sliders() {
-    return this.$sliders;
-  }
-
   textChanged() {
-    let value = this.$input.val();
-    let values = value.split(/[^\d]+/);
+    let values = this.$input.val().split(/[^\d]+/);
     let i = 0;
     ['h', 'm', 's'].forEach((type) => {
-      if (this.$sliders[type]) {
-        this.$sliders[type].slider('value', Number(values[i] || 0));
+      let $slider = this.$sliders[type];
+      if ($slider) {
+        $slider.slider('value', Number(values[i] || 0));
         i++;
       }
     });
   }
 
-  sliderChanged(changedType, changedValue) {
+  sliderChanged() {
     let second = 0;
     for (let type in this.$sliders) {
-      let value;
-      if (type == changedType) {
-        value = changedValue;
-      } else {
-        value = this.$sliders[type].slider('value');
-      }
-      second += Durationslider.toSecond(type, value);
+      let $slider = this.$sliders[type];
+      second += Durationslider.toSecond(type, $slider.slider('value'));
     }
 
     let text = Durationslider.toText(second, this.options.format);
-    this.$input.val(text).trigger('change');
+    if (this.$input.val() != text) {
+      this.$input.val(text).trigger('change');
+    }
   }
 
   wheelMoved($slider, up) {
@@ -149,8 +145,8 @@ export default class Durationslider {
       value = Math.min(option.max, value + option.step)
     }
 
-    this.sliderChanged(type, value);
     $slider.slider('value', value);
+    this.sliderChanged();
   }
 
   static toSecond(type, value) {
