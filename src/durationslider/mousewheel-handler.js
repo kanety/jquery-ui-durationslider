@@ -1,6 +1,6 @@
 'use strict';
 
-import { NAMESPACE } from 'namespace';
+import { NAMESPACE } from '../consts';
 
 export default class MousewheelHandler {
   static bind() {

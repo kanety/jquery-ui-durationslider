@@ -2,7 +2,7 @@
 
 import 'jquery-ui-durationslider.scss';
 import Durationslider from 'durationslider';
-import { NAMESPACE } from 'namespace';
+import { NAMESPACE } from 'consts';
 
 $.fn.durationslider = function(options) {
   return this.each((i, elem) => {

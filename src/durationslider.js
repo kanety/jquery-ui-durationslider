@@ -1,6 +1,6 @@
 'use strict';
 
-import { NAMESPACE } from 'namespace';
+import { NAMESPACE } from 'consts';
 import MousewheelHandler from 'durationslider/mousewheel-handler';
 
 const DEFAULTS = {
