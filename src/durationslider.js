@@ -1,6 +1,8 @@
 'use strict';
 
-const NAMESPACE = 'durationslider';
+import { NAMESPACE } from 'namespace';
+import MousewheelHandler from 'durationslider/mousewheel-handler';
+
 const DEFAULTS = {
   format: null,
   sliders: {
@@ -22,7 +24,8 @@ const DEFAULTS = {
       max: 59,
       step: 1
     }
-  }
+  },
+  mousewheel: false
 };
 
 export default class Durationslider {
@@ -43,7 +46,8 @@ export default class Durationslider {
       }
 
       let $elem = $(slider.elem);
-      $elem.data('type', type);
+      $elem.data(`${NAMESPACE}-type`, type);
+      $elem.data(`${NAMESPACE}-input`, this.$input);
       $elem.addClass(NAMESPACE);
       $elem.slider({
         min: slider.min,
@@ -77,13 +81,18 @@ export default class Durationslider {
     });
 
     for (let type in this.$sliders) {
-      if (this.$sliders[type]) {
-        this.$sliders[type].on(`slide.${NAMESPACE}`, (e, ui) => {
-          let type = $(e.target).data('type');
-          let value = ui.value
+      let $slider = this.$sliders[type];
+      if ($slider) {
+        $slider.on(`slide.${NAMESPACE}`, (e, ui) => {
+          let type = $(e.target).data(`${NAMESPACE}-type`);
+          let value = ui.value;
           this.sliderChanged(type, value);
         });
       }
+    }
+
+    if (this.options.mousewheel) {
+      MousewheelHandler.bind();
     }
   }
 
@@ -127,6 +136,21 @@ export default class Durationslider {
 
     let text = Durationslider.toText(second, this.options.format);
     this.$input.val(text).trigger('change');
+  }
+
+  wheelMoved($slider, up) {
+    let type = $slider.data(`${NAMESPACE}-type`);
+    let value = $slider.slider('value');
+    let option = this.options.sliders[type];
+
+    if (up) {
+      value = Math.max(option.min, value - option.step)
+    } else {
+      value = Math.min(option.max, value + option.step)
+    }
+
+    this.sliderChanged(type, value);
+    $slider.slider('value', value);
   }
 
   static toSecond(type, value) {

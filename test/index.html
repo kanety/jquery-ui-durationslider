@@ -96,5 +96,27 @@
     format: 'h.mm'
   });
   </script>
+
+  <h1>Enable mouse wheel</h1>
+  <form>
+    <div style="display: flex; align-items: center;">
+      <div>
+        <input id="ex5" type="text" value="10.10" style="width: 5em;" />
+      </div>
+      <div>
+        <div id="ex5_hour" style="width: 120px;"></div>
+        <div id="ex5_minute" style="width: 120px;"></div>
+      </div>
+    </div>
+  </form>
+  <script>
+  $('#ex5').durationslider({
+    sliders: {
+      h: { elem: '#ex5_hour' },
+      m: { elem: '#ex5_minute' }
+    },
+    mousewheel: true
+  });
+  </script>
 </body>
 </html>

@@ -43,4 +43,31 @@ describe('jquery-durationslider', function() {
     expect($minute.slider('value')).toEqual(8);
     expect($second.slider('value')).toEqual(59);
   });
+
+  it('handles mousewheel', function() {
+    // IE can't handle WheelEvent
+    var ua = window.navigator.userAgent.toLowerCase();
+    if (ua.indexOf('msie') != -1 || ua.indexOf('trident') != -1) {
+      return;
+    }
+
+    var $ex = $('#ex5');
+    var $hour = $('#ex5_hour');
+    var $minute = $('#ex5_minute');
+    $('#ex5').durationslider({
+      sliders: {
+        h: { elem: $hour },
+        m: { elem: $minute }
+      },
+      mousewheel: true
+    });
+
+    $hour.find('.ui-slider-handle').addClass('ui-state-focus');
+    $minute.find('.ui-slider-handle').addClass('ui-state-focus');
+
+    var event = new WheelEvent('wheel', { deltaX: 0, deltaY: 1, deltaZ: 0 });
+    window.dispatchEvent(event);
+
+    expect($ex.val()).toEqual('11:11');
+  });
 });
