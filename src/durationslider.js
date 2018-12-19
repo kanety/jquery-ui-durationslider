@@ -1,6 +1,8 @@
 'use strict';
 
-const NAMESPACE = 'durationslider';
+import { NAMESPACE } from 'consts';
+import WheelHandler from 'durationslider/wheel-handler';
+
 const DEFAULTS = {
   format: null,
   sliders: {
@@ -22,7 +24,8 @@ const DEFAULTS = {
       max: 59,
       step: 1
     }
-  }
+  },
+  mousewheel: false
 };
 
 export default class Durationslider {
@@ -30,26 +33,23 @@ export default class Durationslider {
     this.options = $.extend(true, {}, DEFAULTS, options);
 
     this.$input = $(input);
-    this.$sliders = {};
-
     this.init();
   }
 
   init() {
+    this.$sliders = {};
+
     for (let type in this.options.sliders) {
-      let slider = this.options.sliders[type];
-      if (!slider.elem) {
+      let opt = this.options.sliders[type];
+      if (!opt.elem) {
         continue;
       }
 
-      let $elem = $(slider.elem);
-      $elem.data('type', type);
-      $elem.addClass(NAMESPACE);
-      $elem.slider({
-        min: slider.min,
-        max: slider.max,
-        step: slider.step
-      });
+      let $elem = $(opt.elem);
+      $elem.data(`${NAMESPACE}-type`, type)
+           .data(`${NAMESPACE}-input`, this.$input)
+           .addClass(NAMESPACE)
+           .slider({ min: opt.min, max: opt.max, step: opt.step });
       this.$sliders[type] = $elem;
     }
 
@@ -75,15 +75,23 @@ export default class Durationslider {
     this.$input.on(`input.${NAMESPACE}`, (e) => {
       this.textChanged();
     });
+    this.$input.on(`blur.${NAMESPACE}`, (e) => {
+      this.sliderChanged();
+    });
 
     for (let type in this.$sliders) {
-      if (this.$sliders[type]) {
-        this.$sliders[type].on(`slide.${NAMESPACE}`, (e, ui) => {
-          let type = $(e.target).data('type');
-          let value = ui.value
-          this.sliderChanged(type, value);
+      let $slider = this.$sliders[type];
+      if ($slider) {
+        $slider.on(`slide.${NAMESPACE}`, (e, ui) => {
+          let type = $(e.target).data(`${NAMESPACE}-type`);
+          this.$sliders[type].slider('value', ui.value);
+          this.sliderChanged();
         });
       }
+    }
+
+    if (this.options.mousewheel) {
+      WheelHandler.bind();
     }
   }
 
@@ -97,36 +105,29 @@ export default class Durationslider {
     }
   }
 
-  sliders() {
-    return this.$sliders;
-  }
-
   textChanged() {
-    let value = this.$input.val();
-    let values = value.split(/[^\d]+/);
+    let values = this.$input.val().split(/[^\d]+/);
     let i = 0;
     ['h', 'm', 's'].forEach((type) => {
-      if (this.$sliders[type]) {
-        this.$sliders[type].slider('value', Number(values[i] || 0));
+      let $slider = this.$sliders[type];
+      if ($slider) {
+        $slider.slider('value', Number(values[i] || 0));
         i++;
       }
     });
   }
 
-  sliderChanged(changedType, changedValue) {
+  sliderChanged() {
     let second = 0;
     for (let type in this.$sliders) {
-      let value;
-      if (type == changedType) {
-        value = changedValue;
-      } else {
-        value = this.$sliders[type].slider('value');
-      }
-      second += Durationslider.toSecond(type, value);
+      let $slider = this.$sliders[type];
+      second += Durationslider.toSecond(type, $slider.slider('value'));
     }
 
     let text = Durationslider.toText(second, this.options.format);
-    this.$input.val(text).trigger('change');
+    if (this.$input.val() != text) {
+      this.$input.val(text).trigger('change');
+    }
   }
 
   static toSecond(type, value) {
