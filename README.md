@@ -28,10 +28,8 @@ Then:
 
 ```javascript
 $('#text').durationslider({
-  sliders: {
-    h: { elem: '#hour' },
-    m: { elem: '#minute' }
-  }
+  h: { elem: '#hour' },
+  m: { elem: '#minute' }
 });
 ```
 
@@ -39,11 +37,9 @@ If you want a slider for seconds:
 
 ```javascript
 $('#text').durationslider({
-  sliders: {
-    h: { elem: '#hour' },
-    m: { elem: '#minute' },
-    s: { elem: '#second' }
-  }
+  h: { elem: '#hour' },
+  m: { elem: '#minute' },
+  s: { elem: '#second' }
 });
 ```
 
@@ -51,10 +47,8 @@ Customize max value and step value:
 
 ```javascript
 $('#text').durationslider({
-  sliders: {
-    h: { elem: '#hour', max: 48 },
-    m: { elem: '#minute', step: 5 }
-  }
+  h: { elem: '#hour', max: 48 },
+  m: { elem: '#minute', step: 5 }
 });
 ```
 
@@ -62,7 +56,7 @@ Customize duration format:
 
 ```javascript
 $('#text').durationslider({
-  format: 'h.mm'
+  format: 'd [DAYS] hh.mm'
 });
 ```
 

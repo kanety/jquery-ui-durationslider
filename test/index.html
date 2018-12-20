@@ -12,79 +12,58 @@
 <body>
   <h1>Hours and minutes</h1>
   <form>
-    <input id="ex1" type="text" value="10:08" style="width: 100px;" />
-    <div id="ex1_hour" style="width: 100px;"> </div>
-    <div id="ex1_minute" style="width: 100px;"> </div>
+    <input id="basic" type="text" value="10:08" style="width: 100px;" />
+    <div id="basic_hour" style="width: 100px;"> </div>
+    <div id="basic_minute" style="width: 100px;"> </div>
   </form>
   <script>
-  $('#ex1').durationslider({
-    sliders: {
-      h: { elem: '#ex1_hour' },
-      m: { elem: '#ex1_minute' }
-    }
+  $('#basic').durationslider({
+    h: { elem: '#basic_hour' },
+    m: { elem: '#basic_minute' }
   });
   </script>
 
-  <h1>With seconds</h1>
+  <h1>With days and seconds</h1>
   <form>
-    <input id="ex2" type="text" value="10:08:59" style="width: 100px;" />
-    <div id="ex2_hour" style="width: 100px;"> </div>
-    <div id="ex2_minute" style="width: 100px;"> </div>
-    <div id="ex2_second" style="width: 100px;"> </div>
+    <input id="extend" type="text" value="1 DAYS 10:08:59" style="width: 120px;" />
+    <div id="extend_day" style="width: 120px;"> </div>
+    <div id="extend_hour" style="width: 120px;"> </div>
+    <div id="extend_minute" style="width: 120px;"> </div>
+    <div id="extend_second" style="width: 120px;"> </div>
   </form>
   <script>
-  $('#ex2').durationslider({
-    sliders: {
-      h: { elem: '#ex2_hour' },
-      m: { elem: '#ex2_minute' },
-      s: { elem: '#ex2_second' }
-    }
+  $('#extend').durationslider({
+    format: 'd [DAYS] hh:mm:ss',
+    d: { elem: '#extend_day' },
+    h: { elem: '#extend_hour' },
+    m: { elem: '#extend_minute' },
+    s: { elem: '#extend_second' }
   });
   </script>
 
   <h1>Customize max and step</h1>
   <form>
-    <input id="ex3" type="text" value="10:10" style="width: 100px;" />
-    <div id="ex3_hour" style="width: 100px;"> </div>
-    <div id="ex3_minute" style="width: 100px;"> </div>
+    <input id="option" type="text" value="10:10" style="width: 100px;" />
+    <div id="option_hour" style="width: 100px;"> </div>
+    <div id="option_minute" style="width: 100px;"> </div>
   </form>
   <script>
-  $('#ex3').durationslider({
-    sliders: {
-      h: { elem: '#ex3_hour', max: 48 },
-      m: { elem: '#ex3_minute', step: 5 }
-    }
-  });
-  </script>
-
-  <h1>Customize duration format</h1>
-  <form>
-    <input id="ex4" type="text" value="10.10" style="width: 100px;" />
-    <div id="ex4_hour" style="width: 100px;"> </div>
-    <div id="ex4_minute" style="width: 100px;"> </div>
-  </form>
-  <script>
-  $('#ex4').durationslider({
-    sliders: {
-      h: { elem: '#ex4_hour' },
-      m: { elem: '#ex4_minute' }
-    },
-    format: 'h.mm'
+  $('#option').durationslider({
+    h: { elem: '#option_hour', max: 48 },
+    m: { elem: '#option_minute', step: 5 }
   });
   </script>
 
   <h1>Enable mouse wheel</h1>
   <form>
-    <input id="ex5" type="text" value="10.10" style="width: 100px;" />
-    <div id="ex5_hour" style="width: 100px;"> </div>
-    <div id="ex5_minute" style="width: 100px;"> </div>
+    <input id="wheel" type="text" value="10.10" style="width: 100px;" />
+    <div id="wheel_hour" style="width: 100px;"> </div>
+    <div id="wheel_minute" style="width: 100px;"> </div>
   </form>
   <script>
-  $('#ex5').durationslider({
-    sliders: {
-      h: { elem: '#ex5_hour' },
-      m: { elem: '#ex5_minute' }
-    },
+  $('#wheel').durationslider({
+    h: { elem: '#wheel_hour' },
+    m: { elem: '#wheel_minute' },
     mousewheel: true
   });
   </script>
