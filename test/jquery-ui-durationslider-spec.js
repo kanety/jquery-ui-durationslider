@@ -3,15 +3,13 @@ describe('jquery-durationslider', function() {
     document.body.innerHTML = __html__['test/index.html'];
   });
 
-  it('has sliders', function() {
-    var $ex = $('#ex1');
-    var $hour = $('#ex1_hour');
-    var $minute = $('#ex1_minute');
+  it('has basic sliders', function() {
+    var $ex = $('#basic');
+    var $hour = $('#basic_hour');
+    var $minute = $('#basic_minute');
     $ex.durationslider({
-      sliders: {
-        h: { elem: $hour },
-        m: { elem: $minute }
-      }
+      h: { elem: $hour },
+      m: { elem: $minute }
     });
 
     expect($ex.val()).toEqual('10:08');
@@ -25,20 +23,22 @@ describe('jquery-durationslider', function() {
     expect($minute.slider('value')).toEqual(9);
   });
 
-  it('includes a second slider', function() {
-    var $ex = $('#ex2');
-    var $hour = $('#ex2_hour');
-    var $minute = $('#ex2_minute');
-    var $second = $('#ex2_second');
+  it('includes sliders for days and seconds', function() {
+    var $ex = $('#extend');
+    var $day = $('#extend_day');
+    var $hour = $('#extend_hour');
+    var $minute = $('#extend_minute');
+    var $second = $('#extend_second');
     $ex.durationslider({
-      sliders: {
-        h: { elem: $hour },
-        m: { elem: $minute },
-        s: { elem: $second }
-      }
+      format: 'd [DAYS] hh:mm:ss',
+      d: { elem: $day },
+      h: { elem: $hour },
+      m: { elem: $minute },
+      s: { elem: $second }
     });
 
-    expect($ex.val()).toEqual('10:08:59');
+    expect($ex.val()).toEqual('1 DAYS 10:08:59');
+    expect($day.slider('value')).toEqual(1);
     expect($hour.slider('value')).toEqual(10);
     expect($minute.slider('value')).toEqual(8);
     expect($second.slider('value')).toEqual(59);
@@ -51,14 +51,12 @@ describe('jquery-durationslider', function() {
       return;
     }
 
-    var $ex = $('#ex5');
-    var $hour = $('#ex5_hour');
-    var $minute = $('#ex5_minute');
-    $('#ex5').durationslider({
-      sliders: {
-        h: { elem: $hour },
-        m: { elem: $minute }
-      },
+    var $ex = $('#wheel');
+    var $hour = $('#wheel_hour');
+    var $minute = $('#wheel_minute');
+    $('#wheel').durationslider({
+      h: { elem: $hour },
+      m: { elem: $minute },
       mousewheel: true
     });
 

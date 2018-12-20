@@ -17,9 +17,9 @@ export default class WheelHandler {
   }
 
   static handle(e) {
-    $(document).find('.ui-slider-handle.ui-state-focus').each(function(i, elem) {
+    $(document).find('.ui-slider-handle.ui-state-focus').each((i, elem) => {
       let $slider = $(elem).parent();
-      let instance = $slider.data(`${NAMESPACE}-input`).data(NAMESPACE);
+      let instance = $slider.data(NAMESPACE);
       if (instance && instance.options.mousewheel) {
         e.preventDefault();
         WheelHandler.wheelMoved(instance, $slider, WheelHandler.isUp(e));
@@ -32,9 +32,8 @@ export default class WheelHandler {
   }
 
   static wheelMoved(instance, $slider, up) {
-    let type = $slider.data(`${NAMESPACE}-type`);
     let value = $slider.slider('value');
-    let option = instance.options.sliders[type];
+    let option = $slider.slider('option');
 
     if (up) {
       value = Math.max(option.min, value - option.step)
