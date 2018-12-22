@@ -1,6 +1,6 @@
 {
   "name": "@kanety/jquery-ui-durationslider",
-  "description": "Bind text box and jquery-ui slider for duration input",
+  "description": "Bind text field and jquery-ui slider for duration input",
   "version": "0.2.0",
   "author": "Yoshikazu Kaneta <kaneta@sitebridge.co.jp>",
   "repository": {
