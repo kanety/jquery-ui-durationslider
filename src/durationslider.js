@@ -1,7 +1,7 @@
 'use strict';
 
-import { NAMESPACE } from 'consts';
-import WheelHandler from 'durationslider/wheel-handler';
+import { NAMESPACE } from './consts';
+import WheelHandler from './wheel-handler';
 
 const DEFAULTS = {
   d: {
@@ -98,21 +98,27 @@ export default class Durationslider {
     });
   }
 
+  dhms() {
+    return Durationslider.toDHMS(this.$input.val(), this.options.format);
+  }
+
+  seconds() {
+    return this.$sliders.map(($slider) => {
+      return Durationslider.toSecond($slider.slider('option', 'type'), $slider.slider('value'));
+    }).reduce((x, y) => {
+      return x + y;
+    });
+  }
+
   textChanged() {
-    let time = Durationslider.toDHMS(this.$input.val(), this.options.format);
+    let time = this.dhms();
     this.$sliders.forEach(($slider) => {
       $slider.slider('value', time[$slider.slider('option', 'type')]);
     });
   }
 
   sliderChanged() {
-    let second = this.$sliders.map(($slider) => {
-      return Durationslider.toSecond($slider.slider('option', 'type'), $slider.slider('value'));
-    }).reduce((x, y) => {
-      return x + y;
-    });
-
-    let text = Durationslider.toText(second, this.options.format);
+    let text = Durationslider.toText(this.seconds(), this.options.format);
     if (this.$input.val() != text) {
       this.$input.val(text).trigger('change');
     }

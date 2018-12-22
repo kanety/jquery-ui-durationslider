@@ -1,6 +1,6 @@
 # jquery-ui-durationslider
 
-Bind text box and jquery-ui slider for duration input.
+Bind text field and jquery-ui slider for duration input.
 
 ## Dependencies
 
@@ -16,7 +16,7 @@ Install from npm:
 
 ## Usage
 
-Make a text box and `div` elements for sliders:
+Make a text field and `div` elements for sliders:
 
 ```html
 <input id="text" type="text" value="10:08" style="width: 5em;" />

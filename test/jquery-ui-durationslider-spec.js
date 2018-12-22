@@ -1,6 +1,6 @@
 describe('jquery-durationslider', function() {
   beforeEach(function() {
-    document.body.innerHTML = __html__['test/index.html'];
+    document.body.innerHTML = __html__['index.html'];
   });
 
   it('has basic sliders', function() {

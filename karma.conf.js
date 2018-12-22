@@ -20,7 +20,7 @@ module.exports = function(config) {
       'node_modules/moment/min/moment.min.js',
       'node_modules/moment-duration-format/lib/moment-duration-format.js',
       'dist/*.js',
-      'test/**/*.html',
+      'index.html',
       'test/**/*spec.js'
     ],
 
@@ -34,7 +34,7 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
         'src/*.js' : ['coverage'],
-        'test/**/*.html': ['html2js']
+        'index.html': ['html2js']
     },
 
 
