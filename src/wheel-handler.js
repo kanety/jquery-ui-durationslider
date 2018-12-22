@@ -1,6 +1,6 @@
 'use strict';
 
-import { NAMESPACE } from '../consts';
+import { NAMESPACE } from './consts';
 
 export default class WheelHandler {
   static bind() {
