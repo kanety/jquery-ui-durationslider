@@ -14,6 +14,10 @@ module.exports = {
     publicPath: "/dist"
   },
 
+  externals: {
+    jquery: "jQuery"
+  },
+
   plugins: [
     new MiniCssExtractPlugin({
       filename: "[name].css"

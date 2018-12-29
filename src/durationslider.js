@@ -1,5 +1,3 @@
-'use strict';
-
 import { NAMESPACE } from './consts';
 import WheelHandler from './wheel-handler';
 
@@ -125,8 +123,8 @@ export default class Durationslider {
   }
 
   static toDHMS(text, format) {
-    let values = text.split(/[^\d]+/);
-    let formats = format.replace(/\[.*\]/g, '').split(/[^dhms]+/);
+    let values = text.match(/\d+/g);
+    let formats = format.replace(/\[.*?\]/g, '').match(/d+|h+|m+|s+/g);
 
     let time = { d: 0, h: 0, m: 0, s: 0 };
     for (let i=0; i<Math.min(values.length, formats.length); i++) {
@@ -159,8 +157,49 @@ export default class Durationslider {
     return 0;
   }
 
-  static toText(second, format) {
-    return moment.duration(second, 'seconds').format(format, { trim: false });
+  static toText(seconds, format) {
+    let formats = format.match(/\[.+?\]|d+|h+|m+|s+|./g);
+
+    let time = { d: 0, h: 0, m: 0, s: 0 };
+    if (formats.some((fmt) => fmt.match(/^d+$/))) {
+      time.d = Math.floor(seconds / (3600 * 24));
+    }
+    if (formats.some((fmt) => fmt.match(/^h+$/))) {
+      time.h = Math.floor((seconds - (time.d * 3600 * 24)) / 3600);
+    }
+    if (formats.some((fmt) => fmt.match(/^m+$/))) {
+      time.m = Math.floor((seconds - (time.d * 3600 * 24) - (time.h * 3600)) / 60);
+    }
+    if (formats.some((fmt) => fmt.match(/^s+$/))) {
+      time.s = seconds - (time.d * 3600 * 24) - (time.h * 3600) - (time.m * 60);
+    }
+
+    let text = '';
+    formats.forEach((fmt) => {
+      let part;
+      if (fmt.match(/^\[.+\]$/)) {
+        part = fmt.slice(1, -1);
+      } else if (fmt.match(/^d+$/)) {
+        part = Durationslider.padding(time.d.toString(), fmt.length);
+      } else if (fmt.match(/^h+$/)) {
+        part = Durationslider.padding(time.h.toString(), fmt.length);
+      } else if (fmt.match(/^m+$/)) {
+        part = Durationslider.padding(time.m.toString(), fmt.length);
+      } else if (fmt.match(/^s+$/)) {
+        part = Durationslider.padding(time.s.toString(), fmt.length);
+      } else {
+        part = fmt;
+      }
+      text += part;
+    });
+    return text;
+  }
+
+  static padding(text, length) {
+    for (let i=0; i<length - text.length; i++) {
+      text = '0' + text;
+    }
+    return text;
   }
 
   static getDefaults() {

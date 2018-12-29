@@ -5,8 +5,6 @@ Bind text field and jquery-ui slider for duration input.
 ## Dependencies
 
 * jquery-ui
-* moment
-* moment-duration-format
 
 ## Installation
 
@@ -59,6 +57,12 @@ $('#text').durationslider({
   format: 'd [DAYS] hh.mm'
 });
 ```
+
+* d: days
+* h: hours
+* m: minutes
+* s: seconds
+* []: raw text
 
 Enable mousewheel support (only modern browsers):
 
