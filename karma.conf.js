@@ -17,8 +17,6 @@ module.exports = function(config) {
     files: [
       'node_modules/jquery/dist/jquery.min.js',
       'node_modules/jquery-ui-dist/jquery-ui.min.js',
-      'node_modules/moment/min/moment.min.js',
-      'node_modules/moment-duration-format/lib/moment-duration-format.js',
       'dist/*.js',
       'index.html',
       'test/**/*spec.js'

@@ -1,8 +1,6 @@
-'use strict';
-
-import './jquery-ui-durationslider.scss';
-import Durationslider from './durationslider';
 import { NAMESPACE } from './consts';
+import Durationslider from './durationslider';
+import './jquery-ui-durationslider.scss';
 
 $.fn.durationslider = function(options) {
   return this.each((i, elem) => {

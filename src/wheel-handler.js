@@ -1,5 +1,3 @@
-'use strict';
-
 import { NAMESPACE } from './consts';
 
 export default class WheelHandler {
@@ -7,7 +5,7 @@ export default class WheelHandler {
     let events = $._data(window, 'events');
     if (!events || !events.wheel || !events.wheel.some(e => e.namespace == NAMESPACE)) {
       $(window).on(`wheel.${NAMESPACE}`, (e) => {
-        WheelHandler.handle(e)
+        WheelHandler.handle(e);
       });
     }
   }
@@ -36,9 +34,9 @@ export default class WheelHandler {
     let option = $slider.slider('option');
 
     if (up) {
-      value = Math.max(option.min, value - option.step)
+      value = Math.max(option.min, value - option.step);
     } else {
-      value = Math.min(option.max, value + option.step)
+      value = Math.min(option.max, value + option.step);
     }
 
     $slider.slider('value', value);
