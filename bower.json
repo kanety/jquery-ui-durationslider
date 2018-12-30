@@ -1,5 +1,5 @@
 {
   "name": "@kanety/jquery-ui-durationslider",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "main": "dist/jquery-ui-durationslider.js"
 }

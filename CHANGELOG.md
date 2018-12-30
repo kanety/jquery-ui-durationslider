@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.0
+
+* Remove moment dependency.
+
 ## 0.3.0
 
 * Export class for convenience.
