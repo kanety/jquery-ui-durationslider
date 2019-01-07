@@ -66,6 +66,6 @@ describe('jquery-durationslider', function() {
     var event = new WheelEvent('wheel', { deltaX: 0, deltaY: -1, deltaZ: 0 });
     window.dispatchEvent(event);
 
-    expect($ex.val()).toEqual('11:11');
+    expect($ex.val()).toEqual('01:01');
   });
 });

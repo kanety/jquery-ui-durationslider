@@ -123,8 +123,8 @@ export default class Durationslider {
   }
 
   static toDHMS(text, format) {
-    let values = text.match(/\d+/g);
-    let formats = format.replace(/\[.*?\]/g, '').match(/d+|h+|m+|s+/g);
+    let values = text.match(/\d+/g) || [];
+    let formats = format.replace(/\[.*?\]/g, '').match(/d+|h+|m+|s+/g) || [];
 
     let time = { d: 0, h: 0, m: 0, s: 0 };
     for (let i=0; i<Math.min(values.length, formats.length); i++) {
@@ -158,7 +158,7 @@ export default class Durationslider {
   }
 
   static toText(seconds, format) {
-    let formats = format.match(/\[.+?\]|d+|h+|m+|s+|./g);
+    let formats = format.match(/\[.+?\]|d+|h+|m+|s+|./g) || [];
 
     let time = { d: 0, h: 0, m: 0, s: 0 };
     if (formats.some((fmt) => fmt.match(/^d+$/))) {
