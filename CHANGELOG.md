@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.1
+
+* Fix error on empty value.
+
 ## 0.4.0
 
 * Remove moment dependency.
